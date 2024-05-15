@@ -79,7 +79,7 @@ yarn-error.log
 /android/gradlew.bat
 
 # React Native Windows
-/windows/Generated Files/
+/windows/playoffs/Generated Files/
 /windows/Debug/
 /windows/Release/
 /windows/Build/
