@@ -7,16 +7,15 @@ const appDirectory = path.resolve(__dirname);
 const {presets} = require(`${appDirectory}/babel.config.js`);
 
 const compileNodeModules = [
-  // Add every react-native package that needs compiling
-  // 'react-native-gesture-handler',
+  
 ].map((moduleName) => path.resolve(appDirectory, `node_modules/${moduleName}`));
 
 const babelLoaderConfiguration = {
   test: /\.js$|tsx?$/,
-  // Add every directory that needs to be compiled by Babel during the build.
+ 
   include: [
-    path.resolve(__dirname, 'index.web.js'), // Entry to your application
-    path.resolve(__dirname, 'App.js'), // Change this to your main App file
+    path.resolve(__dirname, 'index.web.js'),
+    path.resolve(__dirname, 'App.js'), 
     path.resolve(__dirname, 'src'),
     ...compileNodeModules,
   ],
@@ -56,7 +55,7 @@ module.exports = {
   output: {
     path: path.resolve(appDirectory, 'dist'),
     publicPath: '/',
-    filename: 'rnw_blogpost.bundle.js',
+    filename: 'playoffs.bundle.js',
   },
   resolve: {
     extensions: ['.web.js', '.js', '.jsx', '.web.tsx', '.web.ts', '.tsx', '.ts'],
@@ -78,7 +77,7 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      // See: https://github.com/necolas/react-native-web/issues/349
+      
       __DEV__: JSON.stringify(true),
     }),
   ],

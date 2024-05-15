@@ -92,8 +92,8 @@ const FAB = () => {
 
 
 
-// Screen for list of series
-function SeriesScreen({ navigation, route }) {
+
+const SeriesScreen = ({ navigation, route }) => {
   const { series } = route.params;
   return (
     <ScrollView style={styles.container}>
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
   },
-  card: { // Add this line
+  card: {
     width: 600,
     backgroundColor: '#333',
     padding: 16,
@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
     }), 
   },
   table: {
-    backgroundColor: '#333', // Dark background for the entire table
-    borderColor: '#fff', // White borders
+    backgroundColor: '#333', 
+    borderColor: '#fff', 
     borderWidth: 1,
    
   },
@@ -234,10 +234,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   FAB_container: {
-    position: 'absolute', // Ensure it's positioned over other components
+    position: 'absolute', 
     bottom: 20,
     right: 20,
-    zIndex: 1000, // High z-index to keep it above other elements
+    zIndex: 1000, 
     ...Platform.select({
       android: {
         bottom: 30,
@@ -300,29 +300,8 @@ const styles = StyleSheet.create({
 });
 
 
-// function StatsTable({ game }) {
-//   const tableData = [
-//     ['SOG', game.details[0].homeValue || '20', game.details[0].awayValue || '15'],
-//     ['PIM', game.details[4].homeValue || '10', game.details[4].awayValue || '12'],
-//     ['Hits', game.details[5].homeValue || '10', game.details[5].awayValue || '12'],
-//     ['BS', game.details[6].homeValue || '10', game.details[6].awayValue || '12'],
-//   ];
-//   return (
-//     <View style={styles.container_table}>
-//       <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-//         <Row data={['Stat', 'Home', 'Away']} textStyle={[styles.head, styles.text_table]} />
-//         {
-//           tableData.map((rowData, index) => (
-//             <Row key={index} data={rowData} textStyle={styles.text_table} />
-//           ))
-//         }
-//       </Table>
-//     </View>
-//   );
-// }
 
-
-function SeriesDetailScreen({route}) {
+const SeriesDetailScreen = ({route}) => {
   const { seriesLetter, topId, bottomId, topLogo, bottomLogo } = route.params;
 
   const [games, setGames] = useState([]);
@@ -402,16 +381,16 @@ function SeriesDetailScreen({route}) {
   );
 }
 
-// Stack Navigator for each round
+
 const Stack = createStackNavigator();
-function RoundNavigator({ route }) {
+const RoundNavigator = ({ route }) => {
     return (
       <Stack.Navigator
         screenOptions={{
-          headerShown: Platform.OS === 'android', // Only show the header on Android
-          headerTitle: 'Playoffs', // This will set the title for all screens
+          headerShown: Platform.OS === 'android', 
+          headerTitle: 'Playoffs', 
           headerStyle: {
-            backgroundColor: 'black', // This will set the background color of the header
+            backgroundColor: 'black',
           },
           headerTintColor: 'white',
           headerTitle: () => (
@@ -432,12 +411,12 @@ function RoundNavigator({ route }) {
     );
 }
 
-// Bottom Tab Navigator for switching between rounds
+
 const Tab = createBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 export default function App() {
   const [series, setseries] = useState({});
-  const [loading, setLoading] = useState(true);  // Declare loading state
+  const [loading, setLoading] = useState(true);  
 
   useEffect(() => {
     ApiService.fetchSeries()
@@ -449,16 +428,16 @@ export default function App() {
         const scfSeries = data.filter(s => s.seriesAbbrev === 'SCF');
    
         setseries({ r1: r1Series, r2: r2Series, cf: cfSeries, scf: scfSeries });
-        setLoading(false);  // Set loading to false when data is fetched
+        setLoading(false);  
       })
       .catch(error => {
         console.error(error);
-        setLoading(false);  // Set loading to false when an error occurs
+        setLoading(false);  
       });
   }, []);
 
   if (loading) {
-    return <Text>Loading...</Text>;  // Replace this with your actual loading screen
+    return <Text>Loading...</Text>;  
   }
   if (Platform.OS === 'android') {
     return (
@@ -491,7 +470,7 @@ export default function App() {
             options={{
               tabBarIcon: () => null,
               headerShown: false,
-               // This will hide the icon
+               
             }}
           />
           <Tab.Screen
@@ -500,7 +479,7 @@ export default function App() {
             initialParams={{ series: series.r2 }}
             options={{
               tabBarIcon: () => null,
-              headerShown: false, // This will hide the icon
+              headerShown: false, 
             }}
           />
           <Tab.Screen
@@ -509,7 +488,7 @@ export default function App() {
             initialParams={{ series: series.cf }}
             options={{
               tabBarIcon: () => null,
-              headerShown: false, // This will hide the icon
+              headerShown: false, 
             }}
           />
           <Tab.Screen
@@ -518,10 +497,9 @@ export default function App() {
             initialParams={{ series: series.scf }}
             options={{
               tabBarIcon: () => null,
-              headerShown: false, // This will hide the icon
+              headerShown: false, 
             }}
           />
-          {/* ... add other rounds */}
           
         </Tab.Navigator>
         <View style={styles.FAB_container}>
@@ -544,7 +522,7 @@ export default function App() {
         fontSize: 20,
       },
       tabBarIndicatorStyle: {
-        backgroundColor: 'transparent', // This will hide the indicator
+        backgroundColor: 'transparent', 
       },
       
     }}
@@ -570,7 +548,7 @@ export default function App() {
           options={{
             tabBarIcon: () => null,
             headerShown: false,
-             // This will hide the icon
+             
           }}
         />
         <TopTab.Screen
@@ -579,7 +557,7 @@ export default function App() {
           initialParams={{ series: series.r2 }}
           options={{
             tabBarIcon: () => null,
-            headerShown: false, // This will hide the icon
+            headerShown: false, 
           }}
         />
         <TopTab.Screen
@@ -588,7 +566,7 @@ export default function App() {
           initialParams={{ series: series.cf }}
           options={{
             tabBarIcon: () => null,
-            headerShown: false, // This will hide the icon
+            headerShown: false, 
           }}
         />
         <TopTab.Screen
@@ -597,10 +575,10 @@ export default function App() {
           initialParams={{ series: series.scf }}
           options={{
             tabBarIcon: () => null,
-            headerShown: false, // This will hide the icon
+            headerShown: false, 
           }}
         />
-        {/* ... add other rounds */}
+       
       </TopTab.Navigator>
       <View style={styles.FAB_container}>
       <FAB />  
